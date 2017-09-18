@@ -1,3 +1,11 @@
-import {{name}} from 'src/{{name}}.vue'
+import {{uppercase name}} from '../src/Component.vue'
 
-module.exports = {{name}}
+function install (Vue) {
+  Vue.component('{{name}}', {{uppercase name}});
+};
+
+module.exports = install
+
+if (typeof window !== 'undefined' && window.Vue) {
+  Vue.use(install)
+}

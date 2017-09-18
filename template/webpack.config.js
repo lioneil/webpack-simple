@@ -3,11 +3,11 @@ var webpack = require('webpack')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
-  entry: './build/test.js',
+  entry: './test/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: '{{name}}.min.js'
+    filename: '{{name}}.js'
   },
   module: {
     rules: [
@@ -33,7 +33,7 @@ module.exports = {
               fallback: 'vue-style-loader'
             })
             {{/sass}}
-          }
+          },
           // other vue-loader options go here
           extractCSS: true,
         }
@@ -64,15 +64,18 @@ module.exports = {
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map'
+  devtool: '#eval-source-map',
+  plugins: [
+    new ExtractTextPlugin("{{name}}.min.css"),
+  ]
 }
 
 if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = '#source-map'
+  module.exports.output.filename = '{{name}}.min.js'
   module.exports.entry = './build/production.js'
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
-    new ExtractTextPlugin("{{name}}.min.css"),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"'

@@ -24,6 +24,14 @@ To build UMD javascripts:
 $ npm run build
 ```
 
+To change the component name, edit build/production.js
+``` js
+// build/production.js
+function install (Vue) {
+  Vue.component('change-me', Component);
+};
+```
+
 ``` html
 <link rel="stylesheet" href="/dist/my-project.min.css">
 ...
