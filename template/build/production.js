@@ -4,7 +4,7 @@ function install (Vue) {
   Vue.component('{{name}}', {{uppercase name}});
 };
 
-module.exports = install
+export default = install
 
 if (typeof window !== 'undefined' && window.Vue) {
   Vue.use(install)
