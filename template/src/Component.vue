@@ -4,7 +4,7 @@
 
 <script>
     export default {
-        name: '{{ uppercase name }}',
+        name: '{{name}}',
         data () {
             return {
                 msg: 'Hello'
@@ -13,6 +13,6 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     //
 </style>

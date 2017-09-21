@@ -1,11 +1,11 @@
-import {{uppercase name}} from '../src/Component.vue'
+import Component from '../src/Component.vue'
 
-function install (Vue) {
-  Vue.component('{{name}}', {{uppercase name}});
-};
+Component.install = function install (Vue) {
+  Vue.component(Component.name, Component)
+}
 
-export default install
+export default Component
 
 if (typeof window !== 'undefined' && window.Vue) {
-  Vue.use(install)
+  Vue.use(Component)
 }
