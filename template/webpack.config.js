@@ -1,6 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
+var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 module.exports = {
   entry: './test/main.js',
@@ -35,7 +36,7 @@ module.exports = {
             {{/sass}}
           },
           // other vue-loader options go here
-          extractCSS: true,
+          // extractCSS: true,
         }
       },
       {
@@ -76,7 +77,17 @@ if (process.env.NODE_ENV === 'production') {
   module.exports.entry = './build/production.js'
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
+    // minified
+    // CSS
+    new OptimizeCssAssetsPlugin({
+      assetNameRegExp: /\.css$/g,
+      cssProcessor: require('cssnano'),
+      cssProcessorOptions: { discardComments: { removeAll: true } },
+      canPrint: true
+    }),
     new ExtractTextPlugin("{{name}}.min.css"),
+
+    // JS
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"'
@@ -89,6 +100,7 @@ if (process.env.NODE_ENV === 'production') {
       }
     }),
     new webpack.LoaderOptionsPlugin({
+      include: /\.min\.js$/,
       minimize: true
     })
   ])
